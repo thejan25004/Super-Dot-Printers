@@ -20,12 +20,15 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    // Add user
     public boolean addUser(UserDTO userDTO) {
+        if(userDTO.getProfilePictureUrl() == null || userDTO.getProfilePictureUrl().isEmpty()) {
+            userDTO.setProfilePictureUrl("https://example.com/default-profile.png");
+        }
         User user = modelMapper.map(userDTO, User.class);
         userRepo.save(user);
         return true;
     }
+
 
     // Get user by ID
     public UserDTO getUserById(int userId) {
